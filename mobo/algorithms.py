@@ -1,3 +1,4 @@
+from mobo.rmobo import RMOBO
 from .mobo import MOBO
 
 '''
@@ -75,6 +76,17 @@ class Custom(MOBO):
     '''
     config = None
 
+class RMOBO1(MOBO):
+    '''
+    Robin MOBO 1
+    '''
+    config = {
+        'surrogate': 'gp',
+        'acquisition': 'pi',
+        'solver': 'nsga2',
+        'selection': 'uncertainty',
+    }
+
 
 def get_algorithm(name):
     '''
@@ -87,5 +99,7 @@ def get_algorithm(name):
         'moead-ego': MOEAD_EGO,
         'parego': ParEGO,
         'custom': Custom,
+        'R1': RMOBO1,
+        'R2': RMOBO,
     }
     return algo[name]

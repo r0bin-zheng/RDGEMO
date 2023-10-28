@@ -50,6 +50,12 @@ def calc_hypervolume(pfront, ref_point):
     hv = get_performance_indicator('hv', ref_point=ref_point)
     return hv.calc(pfront)
 
+def calc_inverted_generational_distance(pfront, ref_point):
+    '''
+    Calculate Inverted Generational Distance of pfront based on ref_point
+    '''
+    igd = get_performance_indicator('igd', pfront)
+    return igd.calc(np.array(ref_point))
 
 def safe_divide(x1, x2):
     '''

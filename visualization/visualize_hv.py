@@ -13,6 +13,9 @@ def main():
     # get argument values and initializations
     args = get_vis_args()
     problem_dir = get_problem_dir(args)
+
+    print(f'Problem dir: {problem_dir}')
+    
     algo_names = get_algo_names(args)
 
     n_algo, n_seed, seed = len(algo_names), args.n_seed, args.seed

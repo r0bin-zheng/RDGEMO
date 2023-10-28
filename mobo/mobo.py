@@ -1,6 +1,6 @@
 import numpy as np
 from .surrogate_problem import SurrogateProblem
-from .utils import Timer, find_pareto_front, calc_hypervolume
+from .utils import Timer, find_pareto_front, calc_hypervolume, calc_inverted_generational_distance
 from .factory import init_from_config
 from .transformation import StandardTransform
 
@@ -70,6 +70,7 @@ class MOBO:
         self.status['pfront'], pfront_idx = find_pareto_front(self.Y, return_index=True)
         self.status['pset'] = self.X[pfront_idx]
         self.status['hv'] = calc_hypervolume(self.status['pfront'], self.ref_point)
+        self.status['igd'] = calc_inverted_generational_distance(self.status['pfront'], self.ref_point)
 
     def solve(self, X_init, Y_init):
         '''
@@ -118,7 +119,7 @@ class MOBO:
 
             # statistics
             global_timer.log('Total runtime', reset=False)
-            print('Total evaluations: %d, hypervolume: %.4f\n' % (self.sample_num, self.status['hv']))
+            print('Total evaluations: %d, hypervolume: %.4f, igd: %.4f\n' % (self.sample_num, self.status['hv'], self.status['igd']))
             
             # return new data iteration by iteration
             yield X_next, Y_next
